@@ -45,7 +45,7 @@ end
 
 abort_item = function(item)
   abortgrab = true
-  --killgrab = true
+  killgrab = true
   if not item then
     item = item_name
   end
@@ -528,6 +528,9 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
       io.stdout:flush()
       tries = 0
       abort_item()
+      if killgrab then
+        return wget.actions.ABORT
+      end
       return wget.actions.EXIT
     end
     local sleep_time = math.random(
