@@ -395,7 +395,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     if item_type == "gallery"
       and string.match(url, "^https?://nhentai%.net/g/([0-9]+)/$") then
       local json = cjson.decode(cjson.decode(string.match(html, 'window%._gallery%s*=%s*JSON%.parse%(("{.-}")%);')))
-      if json["id"] ~= tonumber(item_value) then
+      if tonumber(json["id"]) ~= tonumber(item_value) then
         error("Gallery IDs do not match. Got " .. json["id"] .. ", expected " .. item_value .. ".")
       end
       local media_id = json["media_id"]
